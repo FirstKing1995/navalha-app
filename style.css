@@ -1,0 +1,172 @@
+/* Definindo as cores padrão do app nas variáveis globais */
+:root {
+    --cor-fundo: #FAFAFA; /* Branco "sujo" para o fundo */
+    --cor-principal: #000000; /* Preto absoluto */
+    --cor-destaque: #D4AF37; /* Amarelo Mostarda sofisticado */
+    --cor-texto: #333333; /* Cinza escuro para melhor leitura */
+    --borda-raio: 12px; /* Bordas arredondadas padrão */
+}
+
+/* Reset básico para tirar margens indesejadas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa 100% da altura da tela */
+}
+
+/* Container que segura tudo centralizado */
+.container-login {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* A caixa branca onde os inputs ficam */
+.box-login {
+    background-color: #FFFFFF;
+    padding: 40px 30px;
+    border-radius: var(--borda-raio);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave, moderno */
+    text-align: center;
+}
+
+/* Estilo da Logo provisória */
+.logo-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-circle {
+    width: 100px;
+    height: 100px;
+    background-color: var(--cor-principal);
+    color: var(--cor-destaque);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Faz o círculo perfeito */
+    letter-spacing: 2px;
+}
+
+/* Títulos usando a Bebas Neue */
+.titulo-app {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--cor-principal);
+    letter-spacing: 1px;
+}
+
+.subtitulo {
+    font-size: 14px;
+    margin-bottom: 30px;
+    color: #777;
+}
+
+/* Estilo dos Inputs (campos de digitar) */
+.grupo-input {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.grupo-input label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--cor-principal);
+}
+
+.grupo-input input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: var(--borda-raio);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Quando clica no input, a borda fica mostarda */
+.grupo-input input:focus {
+    border-color: var(--cor-destaque);
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+}
+
+/* Link de esqueci a senha */
+.link-esqueci-senha {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--cor-principal);
+    text-decoration: none;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.link-esqueci-senha:hover {
+    color: var(--cor-destaque);
+}
+
+/* Botões do App */
+.btn-principal {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    border: none;
+    border-radius: var(--borda-raio);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+}
+
+.btn-principal:hover {
+    background-color: #bfa032; /* Um tom mais escuro do mostarda ao passar o mouse */
+}
+
+/* Botão Secundário para criar conta */
+.area-cadastro {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #EEE;
+}
+
+.area-cadastro p {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.btn-secundario {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: var(--cor-principal);
+    border: 2px solid var(--cor-principal);
+    border-radius: var(--borda-raio);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+}
+
+.btn-secundario:hover {
+    background-color: var(--cor-principal);
+    color: var(--cor-fundo);
+}
