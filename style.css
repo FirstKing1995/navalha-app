@@ -520,3 +520,75 @@ body {
     border: 1px solid #FF4D4D;
     color: #FF4D4D;
 }
+
+/* =========================================
+   CARTÃO DE LINK (ABA LINK)
+   ========================================= */
+
+.cartao-link {
+    background-color: #FFFFFF;
+    border-radius: var(--borda-raio);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    margin-top: 20px;
+}
+
+.icone-destaque {
+    width: 60px;
+    height: 60px;
+    background-color: #FFF9E6; /* Um mostarda bem clarinho pro fundo */
+    color: var(--cor-destaque);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px auto;
+}
+
+.icone-destaque .material-symbols-rounded {
+    font-size: 32px;
+}
+
+.cartao-link h3 {
+    font-size: 20px;
+    color: var(--cor-principal);
+    margin-bottom: 10px;
+}
+
+.cartao-link p {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.caixa-texto-link {
+    background-color: #F5F5F5;
+    border: 1px dashed #CCC;
+    padding: 15px;
+    border-radius: var(--borda-raio);
+    font-size: 12px;
+    color: var(--cor-principal);
+    word-break: break-all; /* Garante que o link longo quebre de linha sem sair da caixa */
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.btn-copiar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.btn-whatsapp {
+    border-color: #25D366; /* Cor oficial do WhatsApp */
+    color: #25D366;
+}
+
+.btn-whatsapp:hover {
+    background-color: #25D366;
+    color: #FFF;
+}
