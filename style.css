@@ -592,3 +592,136 @@ body {
     background-color: #25D366;
     color: #FFF;
 }
+
+/* =========================================
+   CARTÕES DE PERFIL, ASSINATURA E SUPORTE
+   ========================================= */
+
+.cartao-perfil {
+    background-color: #FFFFFF;
+    border-radius: var(--borda-raio);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.cabecalho-perfil {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: var(--cor-principal);
+    border-bottom: 2px solid var(--cor-destaque);
+    padding-bottom: 10px;
+}
+
+.cabecalho-perfil h3 {
+    font-size: 18px;
+}
+
+/* Área da Assinatura */
+.cartao-assinatura {
+    border: 2px solid var(--cor-destaque);
+}
+
+.status-assinatura {
+    margin-bottom: 20px;
+}
+
+.badge-ativo {
+    background-color: #4CAF50;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dias-restantes {
+    font-size: 18px;
+    margin-top: 10px;
+    color: var(--cor-principal);
+}
+
+.btn-cancelar-plano {
+    border-color: #FF4D4D;
+    color: #FF4D4D;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.btn-cancelar-plano:hover {
+    background-color: #FF4D4D;
+    color: #FFF;
+}
+
+.aviso-cancelamento {
+    font-size: 10px;
+    color: #888;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Área do Chat (Suporte) */
+.area-chat {
+    background-color: #F9F9F9;
+    border: 1px solid #EEE;
+    border-radius: var(--borda-raio);
+    height: 250px;
+    padding: 15px;
+    overflow-y: auto; /* Cria barra de rolagem se tiver muita mensagem */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mensagem {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.msg-admin {
+    background-color: #E0E0E0;
+    color: var(--cor-texto);
+    align-self: flex-start; /* Fica na esquerda */
+    border-bottom-left-radius: 0;
+}
+
+.msg-barbeiro {
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    align-self: flex-end; /* Fica na direita */
+    border-bottom-right-radius: 0;
+    font-weight: 600;
+}
+
+.area-enviar-mensagem {
+    display: flex;
+    gap: 10px;
+}
+
+.area-enviar-mensagem input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #DDD;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+}
+
+.btn-enviar-msg {
+    background-color: var(--cor-principal);
+    color: var(--cor-destaque);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
