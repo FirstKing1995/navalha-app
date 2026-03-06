@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navalha APP - Novo Barbeiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Pequenos ajustes visuais extras para esta tela específica */
+        .secao-form { background: #FFF; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .secao-form h3 { font-size: 16px; margin-bottom: 15px; border-bottom: 2px solid var(--cor-destaque); padding-bottom: 5px; display: inline-block;}
+        .linha-dinamica { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; background: #F9F9F9; padding: 10px; border-radius: 8px;}
+        .linha-dinamica input, .linha-dinamica select { width: 100%; padding: 8px; border: 1px solid #DDD; border-radius: 6px; font-family: 'Montserrat'; font-size: 12px;}
+        .btn-remover { background: none; border: none; color: #FF4D4D; cursor: pointer; display: flex; align-items: center;}
+        .btn-add-linha { background: transparent; border: 1px dashed var(--cor-principal); padding: 8px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; margin-top: 10px;}
+    </style>
+</head>
+<body class="fundo-cinza" style="padding-bottom: 20px;"> <header class="topo-app">
+        <button onclick="window.location.href='barbeiros.html'" style="background:none; border:none; color:#FFF; display:flex; cursor:pointer;">
+            <span class="material-symbols-rounded">arrow_back_ios</span>
+        </button>
+        <div class="info-topo">
+            <h2>Novo Profissional</h2>
+        </div>
+    </header>
+
+    <main class="container-dashboard">
+        <form id="form-barbeiro">
+            
+            <div class="secao-form">
+                <h3>Dados Básicos</h3>
+                <div class="grupo-input">
+                    <label>Nome do Barbeiro</label>
+                    <input type="text" id="nome-barbeiro" placeholder="Ex: João Silva" required>
+                </div>
+            </div>
+
+            <div class="secao-form">
+                <h3>Serviços Realizados</h3>
+                <div id="container-servicos">
+                    <div class="linha-dinamica servico-item">
+                        <input type="text" placeholder="Nome (Ex: Corte)" class="servico-nome" required>
+                        <input type="number" placeholder="R$ (Ex: 40)" class="servico-valor" required>
+                        <input type="number" placeholder="Minutos (Ex: 30)" class="servico-tempo" required>
+                    </div>
+                </div>
+                <button type="button" class="btn-add-linha" onclick="adicionarServico()">+ Adicionar outro serviço</button>
+            </div>
+
+            <div class="secao-form">
+                <h3>Horários de Trabalho</h3>
+                <div id="container-horarios">
+                    <div class="linha-dinamica horario-item">
+                        <select class="horario-dia">
+                            <option value="Segunda">Segunda</option>
+                            <option value="Terça">Terça</option>
+                            <option value="Quarta">Quarta</option>
+                            <option value="Quinta">Quinta</option>
+                            <option value="Sexta">Sexta</option>
+                            <option value="Sábado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
+                        </select>
+                        <input type="time" class="horario-inicio" required>
+                        <span>às</span>
+                        <input type="time" class="horario-fim" required>
+                    </div>
+                </div>
+                <button type="button" class="btn-add-linha" onclick="adicionarHorario()">+ Adicionar outro horário</button>
+            </div>
+
+            <button type="submit" class="btn-principal" style="margin-top: 10px;">SALVAR PROFISSIONAL</button>
+        </form>
+    </main>
+
+    <script src="novo-barbeiro.js"></script>
+</body>
+</html>
