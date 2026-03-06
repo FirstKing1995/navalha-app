@@ -37,8 +37,11 @@ document.getElementById('form-login').addEventListener('submit', async function(
 
         // Verifica se a planilha respondeu com sucesso ou erro
         if(resultado.status === 'sucesso') {
-            alert('Login realizado com sucesso! Bem-vindo(a)!');
-            // No futuro, aqui colocaremos o código para mudar para a tela do Dashboard
+            // Guarda um "crachá" no navegador para sabermos que ele está logado
+            localStorage.setItem('usuarioLogado', emailDigitado);
+            
+            // Redireciona para a tela do Dashboard
+            window.location.href = 'dashboard.html'; 
         } else {
             // Mostra o erro (ex: senha incorreta, assinatura inativa)
             alert('Aviso: ' + resultado.mensagem);
