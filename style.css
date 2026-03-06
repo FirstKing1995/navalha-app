@@ -170,3 +170,125 @@ body {
     background-color: var(--cor-principal);
     color: var(--cor-fundo);
 }
+
+/* =========================================
+   ESTILOS DO DASHBOARD E ÁREA LOGADA
+   ========================================= */
+
+/* Topo do Aplicativo */
+.topo-app {
+    background-color: var(--cor-principal);
+    color: var(--cor-fundo);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    position: fixed; /* Fica fixo no topo da tela */
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.logo-redonda-pequena {
+    width: 50px;
+    height: 50px;
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+}
+
+.info-topo h2 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-sair {
+    background: none;
+    border: none;
+    color: #CCC;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+/* Container do Dashboard (empurra o conteúdo para baixo do topo fixo) */
+.container-dashboard {
+    width: 100%;
+    max-width: 600px;
+    margin: 90px auto 20px auto;
+    padding: 0 20px;
+}
+
+/* Filtro de Data */
+.area-filtro {
+    margin-bottom: 25px;
+}
+
+.area-filtro label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-data {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #DDD;
+    border-radius: var(--borda-raio);
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+}
+
+/* Cards de Informação */
+.cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide em 2 colunas */
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.card-info {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: var(--borda-raio);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.card-info h3 {
+    font-size: 12px;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.numero-destaque {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--cor-principal);
+}
+
+.card-mostarda {
+    background-color: var(--cor-destaque);
+}
+
+.card-mostarda h3, .card-mostarda .numero-destaque {
+    color: var(--cor-principal);
+}
+
+.btn-notificacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
