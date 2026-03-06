@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navalha APP - Seu Link</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="fundo-cinza">
+
+    <header class="topo-app">
+        <div class="logo-redonda-pequena">NAV</div>
+        <div class="info-topo">
+            <h2>Link de Agendamento</h2>
+        </div>
+    </header>
+
+    <main class="container-dashboard">
+        
+        <div class="cartao-link">
+            <div class="icone-destaque">
+                <span class="material-symbols-rounded">share</span>
+            </div>
+            <h3>Seu Link Exclusivo</h3>
+            <p>Compartilhe este link no seu Instagram ou WhatsApp para seus clientes agendarem horários.</p>
+            
+            <div class="caixa-texto-link" id="texto-link">
+                Gerando link...
+            </div>
+
+            <button class="btn-principal btn-copiar" onclick="copiarLink()">
+                <span class="material-symbols-rounded">content_copy</span>
+                COPIAR LINK
+            </button>
+            
+            <button class="btn-secundario btn-whatsapp" onclick="compartilharWhatsApp()">
+                Compartilhar no WhatsApp
+            </button>
+        </div>
+
+    </main>
+
+    <nav class="menu-inferior">
+        <a href="dashboard.html" class="menu-item">
+            <span class="material-symbols-rounded">space_dashboard</span>
+            <span>Início</span>
+        </a>
+        <a href="agendamentos.html" class="menu-item">
+            <span class="material-symbols-rounded">calendar_month</span>
+            <span>Agenda</span>
+        </a>
+        <a href="barbeiros.html" class="menu-item">
+            <span class="material-symbols-rounded">content_cut</span>
+            <span>Equipe</span>
+        </a>
+        <a href="link.html" class="menu-item ativo">
+            <span class="material-symbols-rounded">share</span>
+            <span>Link</span>
+        </a>
+        <a href="perfil.html" class="menu-item">
+            <span class="material-symbols-rounded">person</span>
+            <span>Perfil</span>
+        </a>
+    </nav>
+
+    <script src="link.js"></script>
+</body>
+</html>
