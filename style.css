@@ -408,3 +408,115 @@ body {
 .badge-aniversario .material-symbols-rounded {
     font-size: 12px;
 }
+
+/* =========================================
+   CARTÕES DE BARBEIROS (ABA EQUIPE)
+   ========================================= */
+
+.btn-adicionar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cartao-barbeiro {
+    background-color: #FFFFFF;
+    border-radius: var(--borda-raio);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.cabecalho-barbeiro {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #F0F0F0;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+/* Foto do Barbeiro (provisória) */
+.foto-barbeiro {
+    width: 60px;
+    height: 60px;
+    background-color: var(--cor-principal);
+    color: var(--cor-destaque);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foto-barbeiro .material-symbols-rounded {
+    font-size: 30px;
+}
+
+.info-barbeiro h3 {
+    font-size: 18px;
+    color: var(--cor-principal);
+    margin-bottom: 5px;
+}
+
+.info-barbeiro p {
+    font-size: 12px;
+    color: #777;
+}
+
+/* Lista de serviços resumida */
+.servicos-resumo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.tag-servico {
+    background-color: #F9F9F9;
+    border: 1px solid #EEE;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #555;
+}
+
+/* Botões de Ação (Editar, Duplicar, Excluir) */
+.acoes-barbeiro {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-acao {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    border-radius: var(--borda-raio);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-editar {
+    background-color: var(--cor-principal);
+    color: #FFF;
+}
+
+.btn-duplicar {
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+}
+
+.btn-excluir {
+    background-color: #FFF;
+    border: 1px solid #FF4D4D;
+    color: #FF4D4D;
+}
