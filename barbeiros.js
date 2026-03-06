@@ -52,5 +52,5 @@ function carregarBarbeiroDeExemplo() {
 
 // Função do botão principal de adicionar
 function abrirFormularioBarbeiro() {
-    alert("Próximo passo: Vamos criar um formulário para cadastrar o Nome, os Serviços e os Horários de Trabalho!");
+    window.location.href = 'novo-barbeiro.html';
 }
