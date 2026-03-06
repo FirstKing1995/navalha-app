@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navalha APP - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="fundo-cinza">
+
+    <header class="topo-app">
+        <div class="logo-redonda-pequena">NAV</div>
+        <div class="info-topo">
+            <h2 id="nome-barbearia-display">Minha Barbearia</h2>
+            <button onclick="sairDoApp()" class="btn-sair">Sair</button>
+        </div>
+    </header>
+
+    <main class="container-dashboard">
+        
+        <div class="area-filtro">
+            <label for="filtro-mes">Filtrar por data:</label>
+            <input type="date" id="filtro-mes" class="input-data">
+        </div>
+
+        <div class="cards-grid">
+            <div class="card-info">
+                <h3>Clientes Atendidos</h3>
+                <p class="numero-destaque" id="qtd-clientes">0</p>
+            </div>
+
+            <div class="card-info card-mostarda">
+                <h3>Faturamento</h3>
+                <p class="numero-destaque" id="valor-faturamento">R$ 0,00</p>
+            </div>
+        </div>
+
+        <button class="btn-principal btn-notificacao" id="btn-ativar-notificacao">
+            🔔 Ativar Notificações
+        </button>
+
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
