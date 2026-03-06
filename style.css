@@ -292,3 +292,50 @@ body {
     align-items: center;
     gap: 10px;
 }
+
+/* =========================================
+   MENU INFERIOR (NAVEGAÇÃO DO APP)
+   ========================================= */
+
+/* A barra branca fixa na base da tela */
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex; /* Coloca os itens lado a lado */
+    justify-content: space-around; /* Espalha os botões igualmente */
+    padding: 12px 0;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05); /* Sombra para cima */
+    z-index: 1000; /* Garante que fique por cima de tudo */
+    border-top: 1px solid #EEE;
+}
+
+/* Os botões individuais */
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none; /* Tira o sublinhado de link */
+    color: #A0A0A0; /* Cinza para os inativos */
+    font-size: 10px;
+    font-weight: 600;
+    gap: 4px; /* Espaço entre o ícone e o texto */
+    transition: color 0.3s ease;
+}
+
+.menu-item .material-symbols-rounded {
+    font-size: 26px; /* Tamanho do ícone */
+}
+
+/* A cor quando passamos o mouse ou quando a aba está ativa */
+.menu-item.ativo, .menu-item:hover {
+    color: var(--cor-destaque);
+}
+
+/* Precisamos adicionar um "preenchimento" no fundo do site geral
+   para que o conteúdo não fique escondido atrás do menu fixo! */
+body {
+    padding-bottom: 80px; 
+}
