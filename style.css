@@ -1260,3 +1260,36 @@ body.fundo-cinza {
     background-color: #FF4D4D;
     color: #FFF;
 }
+
+/* =========================================
+   ÁREA DO ADMINISTRADOR GERAL (SaaS)
+   ========================================= */
+.fundo-admin {
+    background-color: #0d0d0d; /* Fundo bem escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box-admin {
+    background-color: var(--cor-principal);
+    border: 1px solid #333;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+.input-admin label {
+    color: var(--cor-destaque);
+}
+
+.input-admin input {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    color: #FFF;
+}
+
+.input-admin input:focus {
+    border-color: var(--cor-destaque);
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+}
+
