@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navalha APP - Dashboard SaaS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="fundo-admin-painel">
+
+    <header class="topo-admin">
+        <div class="logo-redonda-pequena" style="background: var(--cor-destaque); color: #000;">SaaS</div>
+        <div class="info-topo">
+            <h2 style="color: #FFF;">Painel de Controle</h2>
+            <button onclick="sairDoAdmin()" class="btn-sair" style="color: #AAA;">Encerrar Sessão</button>
+        </div>
+    </header>
+
+    <main class="container-dashboard">
+        
+        <div class="cabecalho-acoes-admin">
+            <div class="grupo-input input-admin" style="margin: 0; flex: 1;">
+                <label style="font-size: 10px;">Filtrar Mês/Ano</label>
+                <input type="month" id="filtro-mes-admin" onchange="buscarDadosSaaS()">
+            </div>
+            <button class="btn-notificacao-admin" onclick="ativarNotificacoesAdmin()">
+                <span class="material-symbols-rounded">notifications_active</span> Ativar Avisos
+            </button>
+        </div>
+
+        <div class="grid-metricas-admin">
+            <div class="card-metrica">
+                <span class="material-symbols-rounded icone-metrica">group</span>
+                <h4>Assinantes Ativos</h4>
+                <p id="metrica-ativos">0</p>
+                <small>Total geral do sistema</small>
+            </div>
+            <div class="card-metrica destaque-metrica">
+                <span class="material-symbols-rounded icone-metrica" style="color:#000;">payments</span>
+                <h4 style="color:#000;">Faturamento (R$20/mês)</h4>
+                <p id="metrica-faturamento" style="color:#000;">R$ 0,00</p>
+                <small style="color:#333;">Estimativa Mensal</small>
+            </div>
+            <div class="card-metrica">
+                <span class="material-symbols-rounded icone-metrica" style="color: #4CAF50;">person_add</span>
+                <h4>Novos no Mês</h4>
+                <p id="metrica-novos">0</p>
+                <small>Cadastros recentes</small>
+            </div>
+            <div class="card-metrica">
+                <span class="material-symbols-rounded icone-metrica" style="color: #FF4D4D;">person_remove</span>
+                <h4>Cancelamentos</h4>
+                <p id="metrica-cancelamentos">0</p>
+                <small>Total de evasões (Churn)</small>
+            </div>
+        </div>
+
+        <div class="card-grafico-admin">
+            <h3>Evolução de Usuários (Últimos 6 Meses)</h3>
+            <canvas id="graficoEvolucao" height="200"></canvas>
+        </div>
+
+    </main>
+
+    <nav class="menu-inferior menu-admin">
+        <a href="admin-painel.html" class="menu-item ativo">
+            <span class="material-symbols-rounded">monitoring</span>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="menu-item" onclick="alert('Em breve: Lista de Usuários')">
+            <span class="material-symbols-rounded">manage_accounts</span>
+            <span>Usuários</span>
+        </a>
+        <a href="#" class="menu-item" onclick="alert('Em breve: Chat de Suporte')">
+            <span class="material-symbols-rounded">forum</span>
+            <span>Suporte</span>
+        </a>
+        <a href="#" class="menu-item" onclick="alert('Em breve: Perfil Admin')">
+            <span class="material-symbols-rounded">admin_panel_settings</span>
+            <span>Configurações</span>
+        </a>
+    </nav>
+
+    <script src="admin-painel.js"></script>
+</body>
+</html>
