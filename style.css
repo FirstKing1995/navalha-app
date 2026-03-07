@@ -965,3 +965,75 @@ body.fundo-cinza {
     background-color: var(--cor-principal);
     color: #FFF;
 }
+
+/* =========================================
+   FLUXO DE AGENDAMENTO (CLIENTE)
+   ========================================= */
+
+.topo-agendamento {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--cor-destaque);
+    padding-bottom: 10px;
+}
+
+.btn-voltar-cliente {
+    background: none;
+    border: none;
+    color: var(--cor-principal);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.topo-agendamento h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--cor-principal);
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.instrucao-passo {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.divisor-ou {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: #AAA;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.divisor-ou::before, .divisor-ou::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #EEE;
+}
+
+.divisor-ou span {
+    padding: 0 10px;
+}
+
+.btn-voltar-simples {
+    background: none;
+    border: none;
+    color: #888;
+    text-decoration: underline;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+}
