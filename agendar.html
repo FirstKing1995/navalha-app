@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navalha APP - Agendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="fundo-cliente">
+
+    <div class="container-cliente">
+        
+        <div class="topo-agendamento">
+            <button onclick="window.history.back()" class="btn-voltar-cliente">
+                <span class="material-symbols-rounded">arrow_back</span> Voltar
+            </button>
+            <h2 id="titulo-passo">1. Identificação</h2>
+        </div>
+
+        <div id="passo-1-identificacao">
+            
+            <div id="area-ja-tenho-cadastro">
+                <p class="instrucao-passo">Digite seu WhatsApp para continuar:</p>
+                <div class="grupo-input">
+                    <input type="tel" id="busca-whatsapp" placeholder="(DDD) 90000-0000">
+                </div>
+                <button class="btn-principal" onclick="buscarCliente()" id="btn-buscar-cliente">CONTINUAR</button>
+                
+                <div class="divisor-ou"><span>OU</span></div>
+                
+                <button class="btn-secundario" onclick="mostrarAreaCadastro()">SOU UM NOVO CLIENTE</button>
+            </div>
+
+            <div id="area-novo-cadastro" style="display: none;">
+                <p class="instrucao-passo">Preencha seus dados rapidamente:</p>
+                <form id="form-cadastro-cliente">
+                    <div class="grupo-input">
+                        <label>Nome Completo</label>
+                        <input type="text" id="cad-nome" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label>WhatsApp</label>
+                        <input type="tel" id="cad-whatsapp" placeholder="(DDD) 90000-0000" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label>E-mail (Opcional)</label>
+                        <input type="email" id="cad-email">
+                    </div>
+                    <div class="grupo-input">
+                        <label>Data de Nascimento</label>
+                        <input type="date" id="cad-nascimento" required>
+                    </div>
+                    <button type="submit" class="btn-principal" id="btn-salvar-cliente">CADASTRAR E CONTINUAR</button>
+                </form>
+                
+                <button class="btn-voltar-simples" onclick="mostrarAreaBusca()">Já tenho cadastro</button>
+            </div>
+        </div>
+
+        </div>
+
+    <script src="agendar.js"></script>
+</body>
+</html>
