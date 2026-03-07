@@ -1401,3 +1401,93 @@ body.fundo-cinza {
 .menu-admin .menu-item { color: #555; }
 .menu-admin .menu-item.ativo, .menu-admin .menu-item:hover { color: var(--cor-destaque); }
 
+/* =========================================
+   CARTÕES DE UTILIZADORES (ADMIN)
+   ========================================= */
+.cartao-usuario-admin {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: var(--borda-raio);
+    padding: 20px;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Faixa lateral para dar estilo */
+.cartao-usuario-admin::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%; width: 4px;
+    background-color: #555;
+}
+
+.cartao-usuario-admin.ativo::before { background-color: #4CAF50; }
+.cartao-usuario-admin.inativo::before { background-color: #FF4D4D; }
+
+.cabecalho-user-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+}
+
+.cabecalho-user-admin h3 {
+    color: #FFF;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.cabecalho-user-admin p {
+    color: #888;
+    font-size: 11px;
+    font-family: monospace;
+}
+
+.badge-status-admin {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+}
+
+.badge-status-admin.bg-ativo { background-color: rgba(76, 175, 80, 0.2); color: #4CAF50; border: 1px solid #4CAF50; }
+.badge-status-admin.bg-inativo { background-color: rgba(255, 77, 77, 0.2); color: #FF4D4D; border: 1px solid #FF4D4D; }
+
+.dados-user-admin p {
+    color: #CCC;
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.acoes-user-admin {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-acao-admin {
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--borda-raio);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+}
+
+.btn-admin-verde { background-color: rgba(76, 175, 80, 0.1); color: #4CAF50; border: 1px solid #4CAF50; }
+.btn-admin-verde:hover { background-color: #4CAF50; color: #FFF; }
+
+.btn-admin-vermelho { background-color: rgba(255, 77, 77, 0.1); color: #FF4D4D; border: 1px solid #FF4D4D; }
+.btn-admin-vermelho:hover { background-color: #FF4D4D; color: #FFF; }
+
