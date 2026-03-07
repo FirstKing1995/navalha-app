@@ -41,6 +41,8 @@ async function buscarNomeDaBarbearia(email) {
 
         if (resultado.status === 'sucesso') {
             document.getElementById('nome-barbearia-cliente').innerText = resultado.dados.nome;
+            // Salva o WhatsApp da barbearia na memória para usarmos no final do agendamento!
+            sessionStorage.setItem('whatsappBarbearia', resultado.dados.whatsapp);
         } else {
             document.getElementById('nome-barbearia-cliente').innerText = "Barbearia não encontrada";
         }
