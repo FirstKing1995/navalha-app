@@ -886,3 +886,13 @@ body {
 .btn-enviar-msg:hover {
     transform: scale(1.05);
 }
+
+/* =========================================
+   CORREÇÃO DE ROLAGEM (PÁGINAS INTERNAS)
+   ========================================= */
+body.fundo-cinza {
+    display: block; /* Tira o alinhamento centralizado forçado do login */
+    height: auto; /* Deixa a página crescer o quanto precisar */
+    min-height: 100vh; /* Garante que tenha pelo menos a altura da tela */
+    padding-bottom: 90px; /* Mantém o espaço para o menu inferior não cobrir o conteúdo */
+}
