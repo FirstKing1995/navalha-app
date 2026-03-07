@@ -399,9 +399,10 @@ async function confirmarAgendamento() {
         const resultado = await resposta.json();
 
         if (resultado.status === 'sucesso') {
-            alert("Agendamento Confirmado! Te esperamos na barbearia!");
-            // Manda o cliente de volta pra tela inicial
-            window.location.href = 'cliente.html';
+            // Esconde o resumo e mostra a tela de SUCESSO
+            document.getElementById('passo-5-resumo').style.display = 'none';
+            document.getElementById('passo-6-sucesso').style.display = 'block';
+            document.getElementById('titulo-passo').innerText = "Concluído!";
         } else {
             alert("Erro: " + resultado.mensagem);
             btn.innerText = "TENTAR NOVAMENTE";
@@ -412,4 +413,35 @@ async function confirmarAgendamento() {
         btn.innerText = "TENTAR NOVAMENTE";
         btn.disabled = false;
     }
+}
+
+// --- FUNÇÕES DA TELA DE SUCESSO ---
+
+function enviarWhatsAppBarbeiro() {
+    // Pega a data e formata pra ficar bonita (DD/MM/YYYY)
+    const dataFormatada = dataSelecionada.split('-').reverse().join('/');
+    
+    // Monta a mensagem profissional
+    const mensagem = `Olá! Acabei de agendar um horário pelo aplicativo.\n\n*Resumo do Agendamento:*\n👤 Cliente: ${clienteAtual.nome}\n✂️ Profissional: ${barbeiroSelecionado.nome}\n📅 Data: ${dataFormatada} às ${horarioSelecionado}\n💈 Serviços: ${servicosEscolhidos.map(s => s.nome).join(', ')}\n💰 Total: R$ ${valorTotalCalculado.toFixed(2)}`;
+
+    // Pega o número da barbearia que salvamos na memória
+    const numeroBarbearia = sessionStorage.getItem('whatsappBarbearia') || '';
+    
+    // Limpa o número para deixar só os dígitos (tira espaços, traços e parênteses)
+    const numeroLimpo = numeroBarbearia.replace(/\D/g, '');
+    
+    // Cria o link do WhatsApp direcionando direto pro número da sua barbearia
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=55${numeroLimpo}&text=${encodeURIComponent(mensagem)}`;
+    
+    window.open(urlWhatsApp, '_blank');
+}
+
+function ativarNotificacoesCliente() {
+    alert("Em breve: Integração com o OneSignal para enviar a notificação no seu celular 30 minutos antes do corte!");
+}
+
+function voltarAoInicioCliente() {
+    // Constrói o link certinho com o código da barbearia de novo
+    const codigoBarbearia = btoa(emailBarbeariaAtual);
+    window.location.href = `cliente.html?b=${codigoBarbearia}`;
 }
