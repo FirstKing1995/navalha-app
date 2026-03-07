@@ -626,98 +626,166 @@ body {
 }
 
 /* =========================================
-   CARTÃO PREMIUM (A nova Assinatura)
+   CARTÃO ASSINATURA - ESTILO CYBERPUNK
    ========================================= */
-.cartao-premium {
-    background-color: var(--cor-principal); /* Fundo Preto */
-    color: #FFF;
-    text-align: center;
-    padding: 35px 20px;
+
+/* A caixa principal que esconde o que vaza e faz o corte diagonal no canto */
+.cartao-cyberpunk {
     position: relative;
+    background: #050505;
+    margin-bottom: 25px;
+    padding: 2px; /* Espaço para a borda neon passar */
     overflow: hidden;
-    border: none;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    /* O truque do corte diagonal no canto inferior direito */
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 }
 
-/* Detalhe mostarda no topo do cartão premium */
-.cartao-premium::before {
-    content: '';
+/* O "Laser" que fica girando em volta do cartão */
+.cartao-cyberpunk::before {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: var(--cor-destaque);
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+    background: conic-gradient(transparent, transparent, transparent, var(--cor-destaque));
+    animation: scanLaser 4s linear infinite;
+    z-index: 1;
 }
 
-.cabecalho-premium {
+@keyframes scanLaser {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* O fundo real do cartão, escuro com uma grade bem suave */
+.conteudo-cyberpunk {
+    position: relative;
+    background-color: #0d0d0d; /* Preto quase absoluto */
+    background-image: linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px; /* Tamanho dos quadradinhos da grade */
+    z-index: 2;
+    padding: 30px 20px;
+    height: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+}
+
+/* Cabeçalho */
+.cabecalho-cyber {
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
-    color: var(--cor-destaque);
-}
-
-.cabecalho-premium h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 1.5px;
-}
-
-.cabecalho-premium .material-symbols-rounded {
-    font-size: 32px;
-}
-
-.status-selo {
-    display: inline-block;
-    background-color: var(--cor-destaque);
-    color: var(--cor-principal);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
-    padding: 6px 20px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-}
-
-.dias-restantes-premium {
-    font-size: 16px;
-    font-weight: 400;
-    margin-bottom: 10px;
-    color: #EEE;
-}
-
-.dias-restantes-premium b {
-    font-size: 30px;
-    color: var(--cor-destaque);
-    display: block;
-    margin-top: 5px;
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 1px;
-}
-
-.beneficios-texto {
-    font-size: 12px;
-    color: #999;
     margin-bottom: 25px;
-    line-height: 1.5;
-    padding: 0 10px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 15px;
 }
 
-/* O botão de cancelar agora é discreto e apagado */
-.btn-link-cancelar {
+.icone-neon {
+    color: var(--cor-destaque);
+    font-size: 32px;
+    text-shadow: 0 0 15px var(--cor-destaque);
+}
+
+.cabecalho-cyber h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #FFF;
+    font-size: 26px;
+    letter-spacing: 3px;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* O Painel de LED onde ficam os dias */
+.painel-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.9); /* Sombra pra dentro (efeito afundado) */
+}
+
+.status-neon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cor-destaque);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+/* O pontinho que fica piscando igual luz de servidor */
+.ponto-pulsante {
+    width: 12px;
+    height: 12px;
+    background-color: var(--cor-destaque);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--cor-destaque);
+    animation: pulsarNeon 1s infinite alternate;
+}
+
+@keyframes pulsarNeon {
+    from { opacity: 0.3; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.1); }
+}
+
+.dados-sistema {
+    text-align: right;
+}
+
+.label-cyber {
+    font-family: monospace;
+    font-size: 10px;
+    color: #666;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+}
+
+.dias-restantes-cyber {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #CCC;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.dias-restantes-cyber b {
+    font-size: 36px;
+    color: var(--cor-destaque);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+/* Textos no estilo terminal */
+.beneficios-cyber {
+    font-family: monospace;
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+}
+
+.btn-link-cancelar-cyber {
     background: none;
     border: none;
-    color: #555;
-    font-family: 'Montserrat', sans-serif;
+    color: #333; /* Bem apagado */
+    font-family: monospace;
     font-size: 11px;
-    text-decoration: underline;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: left;
+    letter-spacing: 1px;
 }
 
-.btn-link-cancelar:hover {
-    color: #FF4D4D; /* Fica vermelho só se a pessoa passar o dedo/mouse em cima */
+.btn-link-cancelar-cyber:hover {
+    color: #FF4D4D; /* Acende vermelho se o cara passar o mouse/dedo */
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
 }
 
 /* =========================================
