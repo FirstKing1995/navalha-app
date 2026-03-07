@@ -1297,6 +1297,8 @@ body.fundo-cinza {
 .fundo-admin-painel {
     background-color: #111;
     color: #FFF;
+    display: block; /* Aqui está a mágica que destrava a rolagem! */
+    height: auto;   /* Deixa a página crescer o quanto precisar */
     min-height: 100vh;
     padding-bottom: 90px;
 }
