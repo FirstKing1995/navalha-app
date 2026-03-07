@@ -11,6 +11,9 @@ let clienteAtual = null;
 let barbeiroSelecionado = null;
 let servicosDoBarbeiroSelecionado = []; // Vamos guardar os serviços que esse barbeiro faz para usar depois!
 
+let dataSelecionada = null;
+let horarioSelecionado = null;
+
 window.onload = function() {
     if (!emailBarbeariaAtual) {
         alert("Erro: Barbearia não identificada. Por favor, acesse novamente pelo link original.");
@@ -188,6 +191,73 @@ function selecionarBarbeiro(id, nome, servicosCodificados) {
         console.error("Erro ao ler serviços do barbeiro.");
     }
 
-    alert(`Você selecionou: ${nome}. Próximo passo será escolher a Data e Horário!`);
-    // avancarParaEscolherData(); <--- Faremos isso na próxima etapa!
+    avancarParaEscolherDataHora();
+}
+
+// --- FUNÇÕES DO PASSO 3 (ESCOLHER DATA E HORA) ---
+
+function avancarParaEscolherDataHora() {
+    document.getElementById('passo-2-barbeiros').style.display = 'none';
+    document.getElementById('passo-3-data-hora').style.display = 'block';
+    document.getElementById('titulo-passo').innerText = "3. Data e Horário";
+
+    // Configura o calendário para não aceitar datas no passado
+    const campoData = document.getElementById('data-agendamento');
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    campoData.min = `${ano}-${mes}-${dia}`; // 'min' impede selecionar dias anteriores
+}
+
+function buscarHorariosDisponiveis() {
+    dataSelecionada = document.getElementById('data-agendamento').value;
+    
+    // Mostra a área de horários
+    document.getElementById('area-horarios').style.display = 'block';
+    const lista = document.getElementById('lista-horarios');
+    
+    // Limpa a seleção anterior
+    horarioSelecionado = null;
+    document.getElementById('btn-continuar-servicos').style.display = 'none';
+
+    lista.innerHTML = '<p style="grid-column: span 4; text-align:center;">Carregando horários...</p>';
+
+    // Simulação rápida de busca de horários (Depois conectaremos com a API real)
+    setTimeout(() => {
+        lista.innerHTML = '';
+        
+        // Vamos gerar alguns horários de exemplo (das 09:00 às 17:00)
+        const horariosExemplo = ['09:00', '09:30', '10:00', '10:30', '11:00', '13:00', '14:00', '15:30', '16:00', '17:00'];
+
+        horariosExemplo.forEach(hora => {
+            // Vamos simular que as 10:00 e 14:00 já estão agendadas (ocupadas)
+            const ocupado = (hora === '10:00' || hora === '14:00') ? 'disabled' : '';
+            
+            lista.innerHTML += `
+                <button class="btn-horario" id="btn-hora-${hora.replace(':','')}" ${ocupado} onclick="selecionarHorario('${hora}')">
+                    ${hora}
+                </button>
+            `;
+        });
+    }, 500); // Aguarda meio segundo para dar aquele efeito de "carregando..."
+}
+
+function selecionarHorario(hora) {
+    horarioSelecionado = hora;
+
+    // Remove a classe "selecionado" de todos os botões
+    const botoes = document.querySelectorAll('.btn-horario');
+    botoes.forEach(b => b.classList.remove('selecionado'));
+
+    // Adiciona a classe "selecionado" apenas no botão clicado
+    document.getElementById(`btn-hora-${hora.replace(':','')}`).classList.add('selecionado');
+
+    // Mostra o botão de continuar para o próximo passo!
+    document.getElementById('btn-continuar-servicos').style.display = 'block';
+}
+
+function avancarParaEscolherServicos() {
+    alert(`Ótimo! Você escolheu dia ${dataSelecionada} às ${horarioSelecionado}. O próximo passo será escolher o Serviço!`);
+    // Faremos o Passo 4 na próxima etapa!
 }
