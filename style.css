@@ -1132,3 +1132,110 @@ body.fundo-cinza {
     cursor: not-allowed;
     transform: none;
 }
+
+/* Serviços (Cliente) */
+.grid-servicos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 80px; /* Espaço para o rodapé não cobrir o último item */
+}
+
+.cartao-servico {
+    background: #FFF;
+    border: 2px solid #EEE;
+    border-radius: var(--borda-raio);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cartao-servico.selecionado {
+    border-color: var(--cor-destaque);
+    background-color: #FFFCF5;
+}
+
+.cartao-servico.selecionado .check-servico {
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    border-color: var(--cor-destaque);
+}
+
+.info-servico h4 {
+    font-size: 15px;
+    margin: 0 0 5px 0;
+    color: var(--cor-principal);
+}
+
+.info-servico p {
+    font-size: 11px;
+    color: #888;
+    margin: 0;
+}
+
+.preco-servico {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.check-servico {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #DDD;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent; /* Esconde o ícone de check por padrão */
+    transition: 0.2s;
+}
+
+/* Rodapé com Total */
+.rodape-total {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #FFF;
+    padding: 15px 20px;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.info-total p { margin: 0; font-size: 16px; }
+.info-total b { color: var(--cor-destaque); font-size: 20px; }
+.info-total span { font-size: 11px; color: #888; }
+.rodape-total .btn-principal { width: auto; padding: 12px 20px; font-size: 16px; }
+
+/* Resumo Final */
+.cartao-resumo {
+    background: #FFF;
+    padding: 30px 20px;
+    border-radius: var(--borda-raio);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.icone-sucesso {
+    font-size: 48px;
+    color: #4CAF50;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.cartao-resumo h3 { text-align: center; font-size: 24px; margin-bottom: 5px;}
+.cartao-resumo > p { text-align: center; font-size: 13px; color: #777; margin-bottom: 20px; }
+
+.detalhes-resumo p { font-size: 14px; margin-bottom: 10px; color: #444; }
+.detalhes-resumo hr { border: none; border-top: 1px dashed #CCC; margin: 15px 0; }
+.resumo-destaque { font-size: 18px !important; color: var(--cor-principal) !important; }
+.resumo-destaque span { color: var(--cor-destaque); font-weight: 700; }
+.aviso-notificacao { font-size: 11px; color: #888; margin-top: 15px; text-align: center;}
