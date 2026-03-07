@@ -1037,3 +1037,60 @@ body.fundo-cinza {
     margin-top: 15px;
     width: 100%;
 }
+
+/* Cartões de Seleção de Barbeiro (Cliente) */
+.grid-barbeiros {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.cartao-selecao-barbeiro {
+    background: #FFFFFF;
+    border: 2px solid #F0F0F0;
+    padding: 15px;
+    border-radius: var(--borda-raio);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cartao-selecao-barbeiro:hover {
+    border-color: var(--cor-destaque);
+    background-color: #FFFCF5; /* Um mostarda beeem clarinho pro fundo */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+}
+
+.foto-selecao {
+    width: 50px;
+    height: 50px;
+    background: var(--cor-principal);
+    color: var(--cor-destaque);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foto-selecao .material-symbols-rounded {
+    font-size: 28px;
+}
+
+.info-selecao {
+    text-align: left;
+}
+
+.info-selecao h3 {
+    font-size: 16px;
+    color: var(--cor-principal);
+    margin: 0 0 3px 0;
+}
+
+.info-selecao p {
+    font-size: 11px;
+    color: #888;
+    margin: 0;
+}
