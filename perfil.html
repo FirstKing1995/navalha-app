@@ -34,45 +34,43 @@
                 </div>
                 <div class="grupo-input">
                     <label>E-mail (Login)</label>
-                    <input type="email" id="perfil-email" disabled style="background-color: #EEE; color: #888;">
+                    <input type="email" id="perfil-email" disabled style="background-color: #F9F9F9; color: #888; border: 1px dashed #CCC;">
                 </div>
                 <div class="grupo-input">
-                    <label>Nova Senha (Deixe em branco para não alterar)</label>
-                    <input type="password" id="perfil-senha" placeholder="Digite apenas se quiser mudar">
+                    <label>Nova Senha (Opcional)</label>
+                    <input type="password" id="perfil-senha" placeholder="Digite apenas para alterar">
                 </div>
-                <button type="submit" class="btn-principal" style="font-size: 16px; padding: 10px;">SALVAR ALTERAÇÕES</button>
+                <button type="submit" class="btn-principal" style="font-size: 16px; padding: 12px; margin-top: 5px;">SALVAR ALTERAÇÕES</button>
             </form>
         </div>
 
-        <div class="cartao-perfil cartao-assinatura">
-            <div class="cabecalho-perfil">
+        <div class="cartao-perfil cartao-premium">
+            <div class="cabecalho-premium">
                 <span class="material-symbols-rounded">workspace_premium</span>
-                <h3>Minha Assinatura</h3>
+                <h3>Assinatura Navalha</h3>
             </div>
-            <div class="status-assinatura">
-                <p>Status: <span id="status-texto" class="badge-ativo">Ativo</span></p>
-                <p class="dias-restantes">Restam <b id="dias-texto">28 dias</b> no seu plano.</p>
+            <div class="status-assinatura-premium">
+                <div class="status-selo">ATIVO</div>
+                <p class="dias-restantes-premium">Restam <b id="dias-texto">28 dias</b></p>
+                <p class="beneficios-texto">Aproveite todos os recursos exclusivos para atrair mais clientes e gerenciar sua barbearia com excelência.</p>
             </div>
-            <button class="btn-secundario btn-cancelar-plano" onclick="cancelarAssinatura()">
-                Cancelar Assinatura
-            </button>
-            <p class="aviso-cancelamento">Ao cancelar, você terá acesso até o fim do período já pago. Seus dados serão excluídos após 3 meses.</p>
+            <button class="btn-link-cancelar" onclick="cancelarAssinatura()">Desejo cancelar minha assinatura</button>
         </div>
 
-        <div class="cartao-perfil">
-            <div class="cabecalho-perfil">
+        <div class="cartao-perfil cartao-suporte">
+            <div class="cabecalho-suporte">
                 <span class="material-symbols-rounded">support_agent</span>
-                <h3>Fale com o Suporte</h3>
+                <h3>Central de Suporte</h3>
             </div>
             
             <div class="area-chat" id="historico-mensagens">
                 <div class="mensagem msg-admin">
-                    <p>Olá! Sou o Administrador do Navalha APP. Como posso ajudar?</p>
+                    <p>Olá! Sou o Administrador do Navalha APP. Como posso ajudar você hoje?</p>
                 </div>
-                </div>
+            </div>
 
             <div class="area-enviar-mensagem">
-                <input type="text" id="nova-mensagem" placeholder="Digite sua dúvida...">
+                <input type="text" id="nova-mensagem" placeholder="Digite sua mensagem...">
                 <button onclick="enviarMensagem()" class="btn-enviar-msg">
                     <span class="material-symbols-rounded">send</span>
                 </button>
