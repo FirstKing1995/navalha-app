@@ -1491,3 +1491,73 @@ body.fundo-cinza {
 .btn-admin-vermelho { background-color: rgba(255, 77, 77, 0.1); color: #FF4D4D; border: 1px solid #FF4D4D; }
 .btn-admin-vermelho:hover { background-color: #FF4D4D; color: #FFF; }
 
+/* =========================================
+   CARTÕES DE SUPORTE (ADMIN)
+   ========================================= */
+.cartao-suporte-admin {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: var(--borda-raio);
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.cabecalho-chamado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.remetente-chamado {
+    color: var(--cor-destaque);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.data-chamado {
+    color: #666;
+    font-size: 11px;
+}
+
+.mensagem-cliente-admin {
+    background-color: #222;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid var(--cor-destaque);
+    color: #CCC;
+    font-size: 13px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.area-resposta-admin textarea {
+    width: 100%;
+    background-color: #000;
+    border: 1px solid #444;
+    color: #FFF;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    min-height: 80px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.area-resposta-admin textarea:focus {
+    border-color: var(--cor-destaque);
+    outline: none;
+}
+
+.resposta-enviada {
+    background-color: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4CAF50;
+    padding: 15px;
+    border-radius: 8px;
+    color: #4CAF50;
+    font-size: 13px;
+}
+
