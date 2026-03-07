@@ -1094,3 +1094,41 @@ body.fundo-cinza {
     color: #888;
     margin: 0;
 }
+
+/* Botões de Horário (Cliente) */
+.grid-horarios {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 botões por linha */
+    gap: 10px;
+}
+
+.btn-horario {
+    padding: 10px 5px;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+    border-radius: var(--borda-raio);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cor-texto);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+/* Quando o cliente passa o mouse ou seleciona o horário */
+.btn-horario:hover, .btn-horario.selecionado {
+    background-color: var(--cor-destaque);
+    border-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    transform: scale(1.05);
+}
+
+/* Se o horário já estiver ocupado (desativado) */
+.btn-horario:disabled {
+    background-color: #F5F5F5;
+    color: #CCC;
+    border-color: #EEE;
+    cursor: not-allowed;
+    transform: none;
+}
