@@ -896,3 +896,72 @@ body.fundo-cinza {
     min-height: 100vh; /* Garante que tenha pelo menos a altura da tela */
     padding-bottom: 90px; /* Mantém o espaço para o menu inferior não cobrir o conteúdo */
 }
+
+/* =========================================
+   ÁREA DO CLIENTE (TELA INICIAL)
+   ========================================= */
+
+.fundo-cliente {
+    background-color: var(--cor-fundo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container-cliente {
+    width: 100%;
+    max-width: 400px;
+    background-color: #FFF;
+    padding: 40px 20px;
+    border-radius: var(--borda-raio);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.topo-cliente {
+    margin-bottom: 40px;
+}
+
+.opcoes-cliente {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-gigante {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 25px 15px;
+    border: none;
+    border-radius: var(--borda-raio);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-gigante .material-symbols-rounded {
+    font-size: 36px;
+}
+
+.btn-gigante:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn-mostarda {
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+}
+
+.btn-escuro {
+    background-color: var(--cor-principal);
+    color: #FFF;
+}
