@@ -1239,3 +1239,24 @@ body.fundo-cinza {
 .resumo-destaque { font-size: 18px !important; color: var(--cor-principal) !important; }
 .resumo-destaque span { color: var(--cor-destaque); font-weight: 700; }
 .aviso-notificacao { font-size: 11px; color: #888; margin-top: 15px; text-align: center;}
+
+/* Botão de Cancelar Agendamento (Cliente) */
+.btn-cancelar-cliente {
+    background-color: transparent;
+    border: 1px solid #FF4D4D;
+    color: #FF4D4D;
+    padding: 10px;
+    width: 100%;
+    border-radius: var(--borda-raio);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+.btn-cancelar-cliente:hover {
+    background-color: #FF4D4D;
+    color: #FFF;
+}
