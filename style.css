@@ -600,8 +600,8 @@ body {
 .cartao-perfil {
     background-color: #FFFFFF;
     border-radius: var(--borda-raio);
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 25px 20px;
+    margin-bottom: 25px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
@@ -611,117 +611,210 @@ body {
     gap: 10px;
     margin-bottom: 20px;
     color: var(--cor-principal);
-    border-bottom: 2px solid var(--cor-destaque);
-    padding-bottom: 10px;
+    border-bottom: 1px solid #EEE;
+    padding-bottom: 15px;
 }
 
 .cabecalho-perfil h3 {
-    font-size: 18px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Área da Assinatura */
-.cartao-assinatura {
-    border: 2px solid var(--cor-destaque);
+.cabecalho-perfil .material-symbols-rounded {
+    color: var(--cor-destaque);
 }
 
-.status-assinatura {
-    margin-bottom: 20px;
-}
-
-.badge-ativo {
-    background-color: #4CAF50;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.dias-restantes {
-    font-size: 18px;
-    margin-top: 10px;
-    color: var(--cor-principal);
-}
-
-.btn-cancelar-plano {
-    border-color: #FF4D4D;
-    color: #FF4D4D;
-    font-size: 14px;
-    padding: 10px;
-}
-
-.btn-cancelar-plano:hover {
-    background-color: #FF4D4D;
+/* =========================================
+   CARTÃO PREMIUM (A nova Assinatura)
+   ========================================= */
+.cartao-premium {
+    background-color: var(--cor-principal); /* Fundo Preto */
     color: #FFF;
-}
-
-.aviso-cancelamento {
-    font-size: 10px;
-    color: #888;
-    margin-top: 10px;
     text-align: center;
+    padding: 35px 20px;
+    position: relative;
+    overflow: hidden;
+    border: none;
 }
 
-/* Área do Chat (Suporte) */
-.area-chat {
-    background-color: #F9F9F9;
-    border: 1px solid #EEE;
-    border-radius: var(--borda-raio);
-    height: 250px;
-    padding: 15px;
-    overflow-y: auto; /* Cria barra de rolagem se tiver muita mensagem */
+/* Detalhe mostarda no topo do cartão premium */
+.cartao-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: var(--cor-destaque);
+}
+
+.cabecalho-premium {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
+    margin-bottom: 20px;
+    color: var(--cor-destaque);
+}
+
+.cabecalho-premium h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+}
+
+.cabecalho-premium .material-symbols-rounded {
+    font-size: 32px;
+}
+
+.status-selo {
+    display: inline-block;
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    padding: 6px 20px;
+    border-radius: 20px;
+    letter-spacing: 1px;
     margin-bottom: 15px;
 }
 
+.dias-restantes-premium {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #EEE;
+}
+
+.dias-restantes-premium b {
+    font-size: 30px;
+    color: var(--cor-destaque);
+    display: block;
+    margin-top: 5px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+}
+
+.beneficios-texto {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    padding: 0 10px;
+}
+
+/* O botão de cancelar agora é discreto e apagado */
+.btn-link-cancelar {
+    background: none;
+    border: none;
+    color: #555;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-link-cancelar:hover {
+    color: #FF4D4D; /* Fica vermelho só se a pessoa passar o dedo/mouse em cima */
+}
+
+/* =========================================
+   CARTÃO DE SUPORTE (Caixa de Chat Isolada)
+   ========================================= */
+.cartao-suporte {
+    padding: 0; /* Tira o espaçamento para o chat ocupar tudo */
+    overflow: hidden; /* Mantém as bordas arredondadas intactas */
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecalho-suporte {
+    background-color: var(--cor-principal);
+    color: var(--cor-destaque);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.cabecalho-suporte h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.area-chat {
+    background-color: #E5DDD5; /* Fundo clássico de chat */
+    height: 300px;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .mensagem {
-    max-width: 80%;
-    padding: 10px 15px;
-    border-radius: 15px;
+    max-width: 85%;
+    padding: 12px 15px;
+    border-radius: 12px;
     font-size: 13px;
     line-height: 1.4;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .msg-admin {
-    background-color: #E0E0E0;
+    background-color: #FFFFFF;
     color: var(--cor-texto);
-    align-self: flex-start; /* Fica na esquerda */
-    border-bottom-left-radius: 0;
+    align-self: flex-start;
+    border-top-left-radius: 0;
 }
 
 .msg-barbeiro {
     background-color: var(--cor-destaque);
     color: var(--cor-principal);
-    align-self: flex-end; /* Fica na direita */
-    border-bottom-right-radius: 0;
+    align-self: flex-end;
+    border-top-right-radius: 0;
     font-weight: 600;
 }
 
 .area-enviar-mensagem {
+    background-color: #F0F0F0;
+    padding: 15px;
     display: flex;
     gap: 10px;
 }
 
 .area-enviar-mensagem input {
     flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #DDD;
-    border-radius: 20px;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 25px;
     font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
     outline: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .btn-enviar-msg {
     background-color: var(--cor-principal);
     color: var(--cor-destaque);
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: 0.2s;
+}
+
+.btn-enviar-msg:hover {
+    transform: scale(1.05);
 }
