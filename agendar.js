@@ -14,6 +14,10 @@ let servicosDoBarbeiroSelecionado = []; // Vamos guardar os serviços que esse b
 let dataSelecionada = null;
 let horarioSelecionado = null;
 
+let servicosEscolhidos = [];
+let valorTotalCalculado = 0;
+let tempoTotalCalculado = 0;
+
 window.onload = function() {
     if (!emailBarbeariaAtual) {
         alert("Erro: Barbearia não identificada. Por favor, acesse novamente pelo link original.");
@@ -257,7 +261,155 @@ function selecionarHorario(hora) {
     document.getElementById('btn-continuar-servicos').style.display = 'block';
 }
 
+// --- FUNÇÕES DO PASSO 4 (ESCOLHER SERVIÇOS) ---
+
 function avancarParaEscolherServicos() {
-    alert(`Ótimo! Você escolheu dia ${dataSelecionada} às ${horarioSelecionado}. O próximo passo será escolher o Serviço!`);
-    // Faremos o Passo 4 na próxima etapa!
+    document.getElementById('passo-3-data-hora').style.display = 'none';
+    document.getElementById('passo-4-servicos').style.display = 'block';
+    document.getElementById('titulo-passo').innerText = "4. Serviços";
+
+    const lista = document.getElementById('lista-servicos-cliente');
+    lista.innerHTML = '';
+
+    if(servicosDoBarbeiroSelecionado.length === 0) {
+        lista.innerHTML = '<p style="text-align:center;">Este profissional ainda não tem serviços cadastrados.</p>';
+        return;
+    }
+
+    // Cria um cartão para cada serviço do barbeiro
+    servicosDoBarbeiroSelecionado.forEach((servico, index) => {
+        // Garantir que os números sejam tratados corretamente para a soma depois
+        const valorReal = parseFloat(servico.valor) || 0;
+        const tempoReal = parseInt(servico.tempo) || 0;
+
+        lista.innerHTML += `
+            <div class="cartao-servico" id="card-srv-${index}" onclick="alternarServico(${index}, '${servico.nome}', ${valorReal}, ${tempoReal})">
+                <div class="info-servico">
+                    <h4>${servico.nome}</h4>
+                    <p>⏳ ${tempoReal} min</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span class="preco-servico">R$ ${valorReal.toFixed(2)}</span>
+                    <div class="check-servico">
+                        <span class="material-symbols-rounded" style="font-size: 16px;">check</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function alternarServico(index, nome, valor, tempo) {
+    const card = document.getElementById(`card-srv-${index}`);
+    const taSelecionado = card.classList.contains('selecionado');
+
+    if (taSelecionado) {
+        // Desmarca o serviço
+        card.classList.remove('selecionado');
+        servicosEscolhidos = servicosEscolhidos.filter(s => s.nome !== nome);
+        valorTotalCalculado -= valor;
+        tempoTotalCalculado -= tempo;
+    } else {
+        // Marca o serviço
+        card.classList.add('selecionado');
+        servicosEscolhidos.push({ nome: nome, valor: valor, tempo: tempo });
+        valorTotalCalculado += valor;
+        tempoTotalCalculado += tempo;
+    }
+
+    atualizarRodapeTotal();
+}
+
+function atualizarRodapeTotal() {
+    const rodape = document.getElementById('rodape-total');
+    if (servicosEscolhidos.length > 0) {
+        rodape.style.display = 'flex';
+        document.getElementById('valor-total-tela').innerText = `R$ ${valorTotalCalculado.toFixed(2)}`;
+        
+        // Formata o tempo bonito (ex: 1h 30 min em vez de 90 min)
+        let textoTempo = `${tempoTotalCalculado} min`;
+        if(tempoTotalCalculado >= 60) {
+            const horas = Math.floor(tempoTotalCalculado / 60);
+            const mins = tempoTotalCalculado % 60;
+            textoTempo = mins > 0 ? `${horas}h ${mins} min` : `${horas}h`;
+        }
+        document.getElementById('tempo-total-tela').innerText = `Tempo est.: ${textoTempo}`;
+    } else {
+        rodape.style.display = 'none'; // Esconde se desmarcar tudo
+    }
+}
+
+// --- FUNÇÕES DO PASSO 5 (RESUMO E CONFIRMAÇÃO) ---
+
+function avancarParaResumo() {
+    document.getElementById('passo-4-servicos').style.display = 'none';
+    document.getElementById('rodape-total').style.display = 'none'; // Esconde o rodapé flutuante
+    
+    document.getElementById('passo-5-resumo').style.display = 'block';
+    document.getElementById('titulo-passo').innerText = "5. Resumo Final";
+
+    // Pega as datas e formata bonito pro Brasil (DD/MM/YYYY)
+    const [ano, mes, dia] = dataSelecionada.split('-');
+    const dataFormatada = `${dia}/${mes}/${ano}`;
+
+    // Pega o nome de todos os serviços escolhidos e junta com vírgula
+    const nomesServicos = servicosEscolhidos.map(s => s.nome).join(', ');
+
+    // Preenche a tela de resumo
+    document.getElementById('resumo-barbeiro').innerText = barbeiroSelecionado.nome;
+    document.getElementById('resumo-data').innerText = dataFormatada;
+    document.getElementById('resumo-hora').innerText = horarioSelecionado;
+    document.getElementById('resumo-servicos').innerText = nomesServicos;
+    document.getElementById('resumo-valor').innerText = `R$ ${valorTotalCalculado.toFixed(2)}`;
+}
+
+async function confirmarAgendamento() {
+    const btn = document.getElementById('btn-confirmar-final');
+    btn.innerText = "CONFIRMANDO...";
+    btn.disabled = true;
+
+    // Converte o tempo total de volta para o texto que a planilha espera
+    let textoTempo = `${tempoTotalCalculado} min`;
+    if(tempoTotalCalculado >= 60) {
+        const horas = Math.floor(tempoTotalCalculado / 60);
+        const mins = tempoTotalCalculado % 60;
+        textoTempo = mins > 0 ? `${horas}h ${mins} min` : `${horas}h`;
+    }
+
+    // O "Pacotão" final de dados que vai pra planilha
+    const dados = {
+        acao: 'novoAgendamento',
+        emailBarbearia: emailBarbeariaAtual,
+        nomeBarbeiro: barbeiroSelecionado.nome,
+        nomeCliente: clienteAtual.nome,
+        telefoneCliente: clienteAtual.whatsapp,
+        servicos: servicosEscolhidos.map(s => s.nome).join(', '),
+        valorTotal: valorTotalCalculado.toFixed(2),
+        dataAgendamento: dataSelecionada,
+        horario: horarioSelecionado,
+        tempoTotal: textoTempo,
+        dataNascimentoCliente: clienteAtual.dataNascimento || ""
+    };
+
+    try {
+        const resposta = await fetch(API_URL, {
+            method: 'POST',
+            body: JSON.stringify(dados)
+        });
+        const resultado = await resposta.json();
+
+        if (resultado.status === 'sucesso') {
+            alert("Agendamento Confirmado! Te esperamos na barbearia!");
+            // Manda o cliente de volta pra tela inicial
+            window.location.href = 'cliente.html';
+        } else {
+            alert("Erro: " + resultado.mensagem);
+            btn.innerText = "TENTAR NOVAMENTE";
+            btn.disabled = false;
+        }
+    } catch (erro) {
+        alert("Erro de conexão ao salvar o agendamento.");
+        btn.innerText = "TENTAR NOVAMENTE";
+        btn.disabled = false;
+    }
 }
