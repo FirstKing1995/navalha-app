@@ -3,84 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navalha APP - Início</title>
+    <title>Navalha APP - Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="fundo-cinza">
 
     <header class="topo-app">
         <div class="logo-redonda-pequena">NAV</div>
         <div class="info-topo">
-            <h2 id="saudacao-nome">Olá, Carregando...</h2>
-            <p>Tenha um ótimo dia de trabalho!</p>
+            <h2 id="saudacao-nome">Carregando Painel...</h2>
+            <p id="data-hoje-texto">--</p>
         </div>
     </header>
 
     <main class="container-dashboard">
         
-        <div class="resumo-dashboard">
-            <div class="cartao-resumo">
-                <span class="material-symbols-rounded icone-resumo">content_cut</span>
-                <h3 id="dash-atendimentos">-</h3>
-                <p>Atendimentos Hoje</p>
+        <div class="grid-metricas-barbearia">
+            <div class="card-metrica-barbearia destaque-mostarda">
+                <span class="material-symbols-rounded">payments</span>
+                <p>Fat. Hoje</p>
+                <h3 id="dash-fat-dia">R$ 0,00</h3>
             </div>
-            <div class="cartao-resumo destaque">
-                <span class="material-symbols-rounded icone-resumo">payments</span>
-                <h3 id="dash-faturamento">R$ 0,00</h3>
-                <p>Faturamento Hoje</p>
+            <div class="card-metrica-barbearia destaque-escuro">
+                <span class="material-symbols-rounded">account_balance</span>
+                <p>Fat. Mês</p>
+                <h3 id="dash-fat-mes">R$ 0,00</h3>
             </div>
-        </div>
-
-        <div class="proximo-cliente">
-            <div class="cabecalho-proximo">
-                <h3>Próximo Cliente</h3>
-                <span class="badge-horario" id="dash-proximo-hora">--:--</span>
+            <div class="card-metrica-barbearia">
+                <span class="material-symbols-rounded" style="color: #FF4D4D;">event_busy</span>
+                <p>Cancelamentos</p>
+                <h3 id="dash-cancelamentos">0</h3>
             </div>
-            <div class="info-proximo" id="dash-proximo-info">
-                <p><strong>Nome:</strong> <span id="dash-proximo-nome">Buscando agenda...</span></p>
-                <p><strong>Serviço:</strong> <span id="dash-proximo-servico">-</span></p>
-                <p><strong>Profissional:</strong> <span id="dash-proximo-barbeiro">-</span></p>
+            <div class="card-metrica-barbearia">
+                <span class="material-symbols-rounded" style="color: var(--cor-destaque);">star</span>
+                <p>Top Serviço</p>
+                <h3 id="dash-top-servico" style="font-size: 16px; margin-top: 8px;">-</h3>
             </div>
         </div>
 
-        <div class="atalhos-dashboard">
-            <button class="btn-atalho" onclick="window.location.href='link.html'">
-                <span class="material-symbols-rounded">share</span>
-                Compartilhar Link
-            </button>
-            <button class="btn-atalho" onclick="window.location.href='agendamentos.html'">
-                <span class="material-symbols-rounded">calendar_month</span>
-                Ver Agenda
-            </button>
+        <div class="secao-dashboard">
+            <h3 class="titulo-secao">Próximos Clientes (Hoje)</h3>
+            <div class="lista-proximos" id="lista-proximos-clientes">
+                <p style="text-align: center; color: #888; font-size: 12px; padding: 10px;">Analisando agenda...</p>
+            </div>
+        </div>
+
+        <div class="secao-dashboard">
+            <h3 class="titulo-secao">Atendimentos Diários (Mês)</h3>
+            <div class="card-grafico-barbearia">
+                <canvas id="graficoAtendimentos" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="secao-dashboard" style="margin-bottom: 30px;">
+            <h3 class="titulo-secao">Desempenho da Equipe (Mês)</h3>
+            <div class="tabela-equipe" id="ranking-equipe">
+                </div>
         </div>
 
     </main>
 
     <nav class="menu-inferior">
-        <a href="dashboard.html" class="menu-item ativo">
-            <span class="material-symbols-rounded">space_dashboard</span>
-            <span>Início</span>
-        </a>
-        <a href="agendamentos.html" class="menu-item">
-            <span class="material-symbols-rounded">calendar_month</span>
-            <span>Agenda</span>
-        </a>
-        <a href="barbeiros.html" class="menu-item">
-            <span class="material-symbols-rounded">content_cut</span>
-            <span>Equipe</span>
-        </a>
-        <a href="link.html" class="menu-item">
-            <span class="material-symbols-rounded">share</span>
-            <span>Link</span>
-        </a>
-        <a href="perfil.html" class="menu-item">
-            <span class="material-symbols-rounded">person</span>
-            <span>Perfil</span>
-        </a>
+        <a href="dashboard.html" class="menu-item ativo"><span class="material-symbols-rounded">space_dashboard</span><span>Início</span></a>
+        <a href="agendamentos.html" class="menu-item"><span class="material-symbols-rounded">calendar_month</span><span>Agenda</span></a>
+        <a href="barbeiros.html" class="menu-item"><span class="material-symbols-rounded">content_cut</span><span>Equipe</span></a>
+        <a href="link.html" class="menu-item"><span class="material-symbols-rounded">share</span><span>Link</span></a>
+        <a href="perfil.html" class="menu-item"><span class="material-symbols-rounded">person</span><span>Perfil</span></a>
     </nav>
 
     <script src="dashboard.js"></script> 
