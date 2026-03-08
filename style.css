@@ -1632,3 +1632,82 @@ body.fundo-cinza {
 .nome-barbeiro-rank { font-weight: 600; font-size: 13px; color: var(--cor-principal);}
 .dados-barbeiro-rank { font-size: 12px; color: #555; text-align: right;}
 
+/* =========================================
+   EQUIPE: MODAL E FOTOS (BARBEARIA & CLIENTE)
+   ========================================= */
+
+/* Janela Modal Escurecida no Fundo */
+.modal-overlay {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    z-index: 1000; 
+    padding: 20px;
+    backdrop-filter: blur(3px); /* Deixa o fundo levemente borrado */
+}
+
+/* Caixa Branca do Formulário */
+.modal-conteudo {
+    background: #FFF; 
+    width: 100%; 
+    max-width: 500px;
+    padding: 30px 20px; 
+    border-radius: var(--borda-raio);
+    max-height: 90vh; 
+    overflow-y: auto; /* Cria barra de rolagem se a tela do celular for pequena */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Bolinha Cinza/Escura quando não tem foto */
+.foto-placeholder {
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%;
+    background: var(--cor-principal); 
+    color: var(--cor-destaque);
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Garante que a foto do barbeiro (tanto na equipe quanto no cliente) fique perfeitamente redonda */
+.cartao-selecao-barbeiro img,
+.info-principal-barbeiro img {
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--cor-destaque);
+}
+
+/* Estilo do botão verde do WhatsApp na Agenda */
+.btn-whatsapp-agenda {
+    width: 100%; 
+    color: #25D366; 
+    border: 1px solid #25D366; 
+    background: rgba(37, 211, 102, 0.05);
+    padding: 8px; 
+    border-radius: var(--borda-raio); 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-whatsapp-agenda:hover {
+    background: #25D366;
+    color: #FFF;
+}
