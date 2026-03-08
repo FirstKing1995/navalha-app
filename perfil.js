@@ -1,6 +1,8 @@
 // ATENÇÃO: Coloque sua URL aqui!
 const API_URL = 'https://script.google.com/macros/s/AKfycbz5w7HQLmhgptjNRTrqVkqESpCI6Fz87ld92rdtd1aeQeDb3yciEZ0R8YPlZs-qccGH/exec';
 
+let logoBase64Atual = ""; // <-- Variável para guardar a logo
+
 window.onload = function() {
     const emailBarbearia = localStorage.getItem('usuarioLogado');
     if (!emailBarbearia) {
@@ -16,6 +18,36 @@ window.onload = function() {
     carregarHistoricoChat();
 };
 
+// --- O COMPRESSOR DE IMAGEM DA LOGO ---
+document.getElementById('input-logo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const MAX_SIZE = 200; // Logo pode ser um pouquinho maior
+            let width = img.width; let height = img.height;
+            if (width > height) { if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; } } 
+            else { if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; } }
+            canvas.width = width; canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            logoBase64Atual = canvas.toDataURL('image/png', 0.8); 
+            
+            document.getElementById('preview-logo').src = logoBase64Atual;
+            document.getElementById('preview-logo').style.display = 'block';
+            document.getElementById('placeholder-logo').style.display = 'none';
+        }
+        img.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
+});
+
+
 // --- FUNÇÃO 1: BUSCAR DADOS ---
 async function buscarDadosDoPerfil(email) {
     const dados = { acao: 'buscarPerfil', email: email };
@@ -30,6 +62,18 @@ async function buscarDadosDoPerfil(email) {
         if (resultado.status === 'sucesso') {
             // Coloca o nome real no campo de texto
             document.getElementById('perfil-nome').value = resultado.dados.nome;
+            // Preenche o WhatsApp se tiver
+            if(document.getElementById('perfil-whatsapp')) {
+                document.getElementById('perfil-whatsapp').value = resultado.dados.whatsapp || "";
+            }
+            
+            // SE TIVER LOGO SALVA, MOSTRA NA TELA!
+            if (resultado.dados.logo) {
+                logoBase64Atual = resultado.dados.logo;
+                document.getElementById('preview-logo').src = logoBase64Atual;
+                document.getElementById('preview-logo').style.display = 'block';
+                document.getElementById('placeholder-logo').style.display = 'none';
+            }
             
             // Atualiza o selo Cyberpunk com o status real (Ativo/Inativo)
             const seloStatus = document.querySelector('.status-neon');
@@ -61,13 +105,16 @@ document.getElementById('form-editar-perfil').addEventListener('submit', async f
 
     const email = localStorage.getItem('usuarioLogado');
     const nome = document.getElementById('perfil-nome').value;
+    const whatsapp = document.getElementById('perfil-whatsapp') ? document.getElementById('perfil-whatsapp').value : "";
     const senha = document.getElementById('perfil-senha').value;
 
     const dados = {
         acao: 'atualizarPerfil',
         email: email,
         nome: nome,
-        senha: senha // Pode estar vazio, a API sabe lidar com isso
+        whatsapp: whatsapp,
+        senha: senha, // Pode estar vazio, a API sabe lidar com isso
+        logo: logoBase64Atual // <--- A LOGO É ENVIADA AQUI
     };
 
     try {
