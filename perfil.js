@@ -28,15 +28,21 @@ document.getElementById('input-logo').addEventListener('change', function(event)
         const img = new Image();
         img.onload = function() {
             const canvas = document.createElement('canvas');
-            const MAX_SIZE = 200; // Logo pode ser um pouquinho maior
+            const MAX_SIZE = 150; // Diminuímos para 150px para garantir que caiba na célula
             let width = img.width; let height = img.height;
             if (width > height) { if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; } } 
             else { if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; } }
+            
             canvas.width = width; canvas.height = height;
             const ctx = canvas.getContext('2d');
+            
+            // Fundo branco (para evitar fundo preto em PNGs transparentes quando viram JPEG)
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, width, height);
             ctx.drawImage(img, 0, 0, width, height);
             
-            logoBase64Atual = canvas.toDataURL('image/png', 0.8); 
+            // A MÁGICA: Transforma em JPEG com compressão forte (0.5)
+            logoBase64Atual = canvas.toDataURL('image/jpeg', 0.5); 
             
             document.getElementById('preview-logo').src = logoBase64Atual;
             document.getElementById('preview-logo').style.display = 'block';
