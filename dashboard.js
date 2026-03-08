@@ -1,105 +1,138 @@
 // ATENÇÃO: Coloque sua URL aqui!
 const API_URL = 'https://script.google.com/macros/s/AKfycbz5w7HQLmhgptjNRTrqVkqESpCI6Fz87ld92rdtd1aeQeDb3yciEZ0R8YPlZs-qccGH/exec';
 
+let meuGraficoBarbearia = null;
+
 window.onload = function() {
     const emailBarbearia = localStorage.getItem('usuarioLogado');
-    if (!emailBarbearia) {
-        window.location.href = 'index.html';
-        return;
-    }
-    carregarDadosDashboard(emailBarbearia);
+    if (!emailBarbearia) { window.location.href = 'index.html'; return; }
+    carregarSuperDashboard(emailBarbearia);
 };
 
-async function carregarDadosDashboard(email) {
-    // 1. Pega a data de hoje no formato YYYY-MM-DD
+async function carregarSuperDashboard(email) {
     const hoje = new Date();
     const ano = hoje.getFullYear();
     const mes = String(hoje.getMonth() + 1).padStart(2, '0');
     const dia = String(hoje.getDate()).padStart(2, '0');
+    
     const dataHoje = `${ano}-${mes}-${dia}`;
+    const mesFiltro = `${ano}-${mes}`;
+    const horaAtualMinutos = (hoje.getHours() * 60) + hoje.getMinutes();
+
+    // Atualiza a data no topo da tela
+    const mesesTexto = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    document.getElementById('data-hoje-texto').innerText = `Hoje, ${dia} de ${mesesTexto[hoje.getMonth()]}`;
 
     try {
-        // --- BUSCA O NOME DA BARBEARIA ---
-        const respPerfil = await fetch(API_URL, {
-            method: 'POST',
-            body: JSON.stringify({ acao: 'buscarPerfil', email: email })
-        });
+        // Busca o nome da barbearia
+        const respPerfil = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ acao: 'buscarPerfil', email: email }) });
         const resultadoPerfil = await respPerfil.json();
-        
         if (resultadoPerfil.status === 'sucesso') {
-            const nomeCompleto = resultadoPerfil.dados.nome;
-            const primeiroNome = nomeCompleto.split(' ')[0]; // Pega só a primeira palavra
-            document.getElementById('saudacao-nome').innerText = `Olá, ${primeiroNome}!`;
+            document.getElementById('saudacao-nome').innerText = `Olá, ${resultadoPerfil.dados.nome.split(' ')[0]}!`;
         }
 
-        // --- BUSCA OS AGENDAMENTOS DE HOJE ---
-        const respAgenda = await fetch(API_URL, {
+        // Busca o SUPER pacote de dados do Dashboard
+        const respDash = await fetch(API_URL, {
             method: 'POST',
-            body: JSON.stringify({ acao: 'buscarAgendamentos', email: email, dataFiltro: dataHoje })
+            body: JSON.stringify({ acao: 'buscarDashboardBarbearia', email: email, mesFiltro: mesFiltro, dataHoje: dataHoje, horaAtualMinutos: horaAtualMinutos })
         });
-        const resultadoAgenda = await respAgenda.json();
+        const resultadoDash = await respDash.json();
 
-        if (resultadoAgenda.status === 'sucesso') {
-            const agendamentos = resultadoAgenda.dados;
-            
-            // Atualiza os cartões de Resumo (Quantidade e Soma de Valores)
-            document.getElementById('dash-atendimentos').innerText = agendamentos.length;
-            
-            let faturamentoTotal = 0;
-            agendamentos.forEach(ag => {
-                faturamentoTotal += parseFloat(ag.valor) || 0;
-            });
-            document.getElementById('dash-faturamento').innerText = `R$ ${faturamentoTotal.toFixed(2)}`;
+        if (resultadoDash.status === 'sucesso') {
+            const d = resultadoDash.dados;
 
-            // --- DESCUBRE QUEM É O PRÓXIMO CLIENTE ---
-            const horaAtualMin = (hoje.getHours() * 60) + hoje.getMinutes();
-            
-            // Ordena a agenda do mais cedo para o mais tarde
-            agendamentos.sort((a, b) => {
-                return converterHoraParaMin(a.horario) - converterHoraParaMin(b.horario);
-            });
+            // 1. Atualiza as 4 métricas do topo
+            document.getElementById('dash-fat-dia').innerText = `R$ ${d.faturamentoDia.toFixed(2)}`;
+            document.getElementById('dash-fat-mes').innerText = `R$ ${d.faturamentoMes.toFixed(2)}`;
+            document.getElementById('dash-cancelamentos').innerText = d.cancelamentosMes;
+            document.getElementById('dash-top-servico').innerText = d.servicoTop;
 
-            let achouProximo = false;
-
-            for (let ag of agendamentos) {
-                const horaAgendamentoMin = converterHoraParaMin(ag.horario);
-                
-                // Se o horário do agendamento for maior ou igual a hora atual, ele é o próximo!
-                if (horaAgendamentoMin >= horaAtualMin) {
-                    document.getElementById('dash-proximo-hora').innerText = ag.horario;
-                    document.getElementById('dash-proximo-nome').innerText = ag.cliente;
-                    document.getElementById('dash-proximo-servico').innerText = ag.servicos;
-                    document.getElementById('dash-proximo-barbeiro').innerText = ag.barbeiro;
-                    achouProximo = true;
-                    break; // Pára no primeiro que encontrar no futuro
-                }
+            // 2. Renderiza Próximos Clientes
+            const divProximos = document.getElementById('lista-proximos-clientes');
+            divProximos.innerHTML = '';
+            if (d.proximos.length === 0) {
+                divProximos.innerHTML = '<p style="text-align: center; color: #888; font-size: 13px; padding: 15px; background: #FFF; border-radius: 12px;">Nenhum cliente agendado para as próximas horas.</p>';
+            } else {
+                d.proximos.forEach(cli => {
+                    divProximos.innerHTML += `
+                        <div class="item-proximo-cliente">
+                            <div class="hora-proximo">${cli.horario}</div>
+                            <div class="info-proximo-cliente">
+                                <h4>${cli.cliente}</h4>
+                                <p>${cli.servicos} com <b>${cli.barbeiro}</b></p>
+                            </div>
+                        </div>
+                    `;
+                });
             }
 
-            // Se rodou tudo e não achou ninguém para frente, é porque o expediente já acabou!
-            if (!achouProximo && agendamentos.length > 0) {
-                document.getElementById('dash-proximo-hora').innerText = "Fim";
-                document.getElementById('dash-proximo-nome').innerText = "Todos os clientes de hoje já foram atendidos!";
-                document.getElementById('dash-proximo-servico').innerText = "-";
-                document.getElementById('dash-proximo-barbeiro').innerText = "-";
+            // 3. Renderiza Ranking da Equipe
+            const divEquipe = document.getElementById('ranking-equipe');
+            divEquipe.innerHTML = '';
+            
+            // Transforma o objeto de barbeiros numa lista para poder ordenar quem ganhou mais
+            let listaBarbeiros = [];
+            for (let nome in d.barbeiros) {
+                listaBarbeiros.push({ nome: nome, atendimentos: d.barbeiros[nome].atendimentos, faturamento: d.barbeiros[nome].faturamento });
+            }
+            // Ordena do maior faturamento para o menor
+            listaBarbeiros.sort((a, b) => b.faturamento - a.faturamento);
+
+            if(listaBarbeiros.length === 0) {
+                divEquipe.innerHTML = '<div class="linha-equipe"><span class="dados-barbeiro-rank">Sem dados este mês.</span></div>';
+            } else {
+                listaBarbeiros.forEach(b => {
+                    divEquipe.innerHTML += `
+                        <div class="linha-equipe">
+                            <span class="nome-barbeiro-rank">${b.nome}</span>
+                            <span class="dados-barbeiro-rank">${b.atendimentos} cortes <br> <b>R$ ${b.faturamento.toFixed(2)}</b></span>
+                        </div>
+                    `;
+                });
             }
 
-        } else {
-            // Se não tem agendamento hoje
-            document.getElementById('dash-atendimentos').innerText = "0";
-            document.getElementById('dash-faturamento').innerText = "R$ 0,00";
-            document.getElementById('dash-proximo-nome').innerText = "Nenhum agendamento para hoje.";
-            document.getElementById('dash-proximo-hora').innerText = "--:--";
+            // 4. Desenhar o Gráfico de Barras do Mês
+            desenharGraficoBarbearia(d.grafico, hoje.getDate());
+
         }
-
     } catch (erro) {
-        console.error("Erro ao carregar dashboard:", erro);
-        document.getElementById('dash-proximo-nome').innerText = "Erro ao carregar dados.";
+        console.error("Erro geral no Dashboard", erro);
     }
 }
 
-// Função de apoio para transformar hora em número (ex: 10:30 vira 630 minutos)
-function converterHoraParaMin(horaTexto) {
-    if(!horaTexto) return 0;
-    let [h, m] = horaTexto.split(':').map(Number);
-    return (h * 60) + m;
+function desenharGraficoBarbearia(dadosGrafico, diaDeHoje) {
+    const ctx = document.getElementById('graficoAtendimentos').getContext('2d');
+    if (meuGraficoBarbearia) meuGraficoBarbearia.destroy();
+
+    // Cria um array para os dias de 1 até o dia de hoje
+    let labelsDias = [];
+    let valoresAtendimentos = [];
+
+    for (let i = 1; i <= diaDeHoje; i++) {
+        labelsDias.push(i); // Eixo X (Dias 1, 2, 3...)
+        // Pega o valor da API, se não tiver atendimento no dia, fica 0
+        let atendimentosNoDia = dadosGrafico[i] || 0;
+        valoresAtendimentos.push(atendimentosNoDia); // Eixo Y
+    }
+
+    meuGraficoBarbearia = new Chart(ctx, {
+        type: 'bar', // Gráfico de Barras!
+        data: {
+            labels: labelsDias,
+            datasets: [{
+                label: 'Atendimentos',
+                data: valoresAtendimentos,
+                backgroundColor: '#D4AF37', // Mostarda
+                borderRadius: 4 // Arredonda a ponta da barra
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 1 } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
 }
