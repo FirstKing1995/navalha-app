@@ -94,7 +94,7 @@ function renderizarAgendamentos(agendamentos, dataFiltro) {
             </div>
         ` : '';
 
-        // Cria a caixa de HTML
+        // Cria a caixa de HTML (AGORA COM O BOTÃO DE WHATSAPP INCLUÍDO!)
         const caixaHTML = `
             <div class="caixa-agendamento">
                 <div class="cabecalho-agendamento">
@@ -108,10 +108,33 @@ function renderizarAgendamentos(agendamentos, dataFiltro) {
                         <span>⏳ ${agendamento.tempo}</span>
                     </div>
                     ${badgeAniversario}
+                    
+                    <hr style="border: none; border-top: 1px solid #EEE; margin: 15px 0 10px 0;">
+                    
+                    <button class="btn-voltar-simples" style="width: 100%; color:#25D366; border: 1px solid #25D366; padding: 8px; border-radius: 5px; text-decoration: none; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px;" onclick="chamarWhatsAppCliente('${agendamento.cliente}', '${agendamento.telefone}')">
+                        <span class="material-symbols-rounded" style="font-size: 18px;">chat</span> Lembrete no WhatsApp
+                    </button>
+
                 </div>
             </div>
         `;
 
         lista.innerHTML += caixaHTML; // Adiciona a caixa na tela
     });
+}
+
+// --- FUNÇÃO PARA CHAMAR O WHATSAPP DO CLIENTE ---
+function chamarWhatsAppCliente(nome, telefone) {
+    // Verifica se o cliente tem telefone cadastrado
+    if(!telefone || telefone === "undefined" || telefone.trim() === "") { 
+        alert("Este cliente não possui telefone cadastrado no sistema."); 
+        return; 
+    }
+    
+    // Limpa o número (tira parênteses, traços e espaços)
+    const numLimpo = telefone.replace(/\D/g, '');
+    
+    // Cria a mensagem e envia para o WhatsApp Web ou App
+    const msg = encodeURIComponent(`Olá ${nome}, tudo bem? Aqui é da barbearia passando para confirmar o seu horário conosco hoje!`);
+    window.open(`https://api.whatsapp.com/send?phone=55${numLimpo}&text=${msg}`, '_blank');
 }
