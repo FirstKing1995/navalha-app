@@ -117,9 +117,16 @@ function renderizarBarbeirosCliente(barbeiros) {
     barbeiros.forEach(barbeiro => {
         const servicosCodificados = encodeURIComponent(barbeiro.servicos || "[]");
         const horariosCodificados = encodeURIComponent(barbeiro.horarios || "[]");
+        
+        // AJUSTE 1: Renderizar a foto do barbeiro, se houver
+        const imgTag = barbeiro.foto && barbeiro.foto.includes('data:image') ? 
+            `<img src="${barbeiro.foto}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">` : 
+            `<div class="foto-selecao"><span class="material-symbols-rounded">face</span></div>`;
+
+        // Modificamos a tag do onclick para enviar o telefone também!
         lista.innerHTML += `
-            <div class="cartao-selecao-barbeiro" onclick="selecionarBarbeiro(${barbeiro.id}, '${barbeiro.nome}', '${servicosCodificados}', '${horariosCodificados}')">
-                <div class="foto-selecao"><span class="material-symbols-rounded">face</span></div>
+            <div class="cartao-selecao-barbeiro" onclick="selecionarBarbeiro(${barbeiro.id}, '${barbeiro.nome}', '${servicosCodificados}', '${horariosCodificados}', '${barbeiro.telefone || ""}')">
+                ${imgTag}
                 <div class="info-selecao"><h3>${barbeiro.nome}</h3><p>Toque para selecionar</p></div>
                 <span class="material-symbols-rounded" style="margin-left:auto; color:var(--cor-destaque);">chevron_right</span>
             </div>
@@ -127,8 +134,10 @@ function renderizarBarbeirosCliente(barbeiros) {
     });
 }
 
-function selecionarBarbeiro(id, nome, servicosCodificados, horariosCodificados) {
-    barbeiroSelecionado = { id: id, nome: nome };
+// AJUSTE 2: Receber e salvar o telefone do barbeiro selecionado
+function selecionarBarbeiro(id, nome, servicosCodificados, horariosCodificados, telefone) {
+    barbeiroSelecionado = { id: id, nome: nome, telefone: telefone };
+    
     try { servicosDoBarbeiroSelecionado = JSON.parse(decodeURIComponent(servicosCodificados)); } catch(e) { servicosDoBarbeiroSelecionado = []; }
     try { horariosDoBarbeiroSelecionado = JSON.parse(decodeURIComponent(horariosCodificados)); } catch(e) { horariosDoBarbeiroSelecionado = []; }
     
@@ -390,11 +399,15 @@ async function confirmarAgendamento() {
     }
 }
 
+// AJUSTE 3: Mensagem agora vai para o telefone do Barbeiro (se cadastrado)
 function enviarWhatsAppBarbeiro() {
     const dataFormatada = dataSelecionada.split('-').reverse().join('/');
     const mensagem = `Olá! Acabei de agendar um horário.\n\n👤 Cliente: ${clienteAtual.nome}\n✂️ Profissional: ${barbeiroSelecionado.nome}\n📅 Data: ${dataFormatada} às ${horarioSelecionado}\n💈 Serviços: ${servicosEscolhidos.map(s => s.nome).join(', ')}\n💰 Total: R$ ${valorTotalCalculado.toFixed(2)}`;
-    const numeroBarbearia = sessionStorage.getItem('whatsappBarbearia') || '';
-    const numeroLimpo = numeroBarbearia.replace(/\D/g, '');
+    
+    // Tenta pegar o número do barbeiro primeiro. Se não tiver, usa o da barbearia.
+    const numeroBarbeiro = barbeiroSelecionado.telefone || sessionStorage.getItem('whatsappBarbearia') || '';
+    const numeroLimpo = numeroBarbeiro.replace(/\D/g, '');
+    
     const urlWhatsApp = `https://api.whatsapp.com/send?phone=55${numeroLimpo}&text=${encodeURIComponent(mensagem)}`;
     window.open(urlWhatsApp, '_blank');
 }
