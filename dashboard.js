@@ -28,7 +28,7 @@ async function carregarSuperDashboard(email) {
         const respPerfil = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ acao: 'buscarPerfil', email: email }) });
         const resultadoPerfil = await respPerfil.json();
         if (resultadoPerfil.status === 'sucesso') {
-            document.getElementById('saudacao-nome').innerText = `Olá, ${nomeCompleto}!`;
+            document.getElementById('saudacao-nome').innerText = `Olá, ${resultadoPerfil.dados.nome}!`;
         }
 
         // Busca o SUPER pacote de dados do Dashboard
