@@ -111,7 +111,7 @@ function renderizarAgendamentos(agendamentos, dataFiltro) {
                     
                     <hr style="border: none; border-top: 1px solid #EEE; margin: 15px 0 10px 0;">
                     
-                    <button class="btn-voltar-simples" style="width: 100%; color:#25D366; border: 1px solid #25D366; padding: 8px; border-radius: 5px; text-decoration: none; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px;" onclick="chamarWhatsAppCliente('${agendamento.cliente}', '${agendamento.telefone}')">
+                    <button class="btn-whatsapp-agenda" style="width: 100%; color:#25D366; border: 1px solid #25D366; padding: 8px; border-radius: 5px; text-decoration: none; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px;" onclick="chamarWhatsAppCliente('${agendamento.cliente}', '${agendamento.telefone}')">
                         <span class="material-symbols-rounded" style="font-size: 18px;">chat</span> Lembrete no WhatsApp
                     </button>
 
