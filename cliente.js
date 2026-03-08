@@ -41,8 +41,13 @@ async function buscarNomeDaBarbearia(email) {
 
         if (resultado.status === 'sucesso') {
             document.getElementById('nome-barbearia-cliente').innerText = resultado.dados.nome;
-            // Salva o WhatsApp da barbearia na memória para usarmos no final do agendamento!
             sessionStorage.setItem('whatsappBarbearia', resultado.dados.whatsapp);
+            
+            // SE TIVER LOGO, SUBSTITUI A BOLINHA "NAV" PELA IMAGEM DA LOGO!
+            if (resultado.dados.logo) {
+                const areaLogo = document.getElementById('logo-cliente-tela');
+                areaLogo.outerHTML = `<img src="${resultado.dados.logo}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px auto; display: block; border: 3px solid var(--cor-destaque);">`;
+            }
         } else {
             document.getElementById('nome-barbearia-cliente').innerText = "Barbearia não encontrada";
         }
