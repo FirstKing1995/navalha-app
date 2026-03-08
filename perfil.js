@@ -13,6 +13,7 @@ window.onload = function() {
     
     // Busca os dados reais na Planilha
     buscarDadosDoPerfil(emailBarbearia);
+    carregarHistoricoChat();
 };
 
 // --- FUNÇÃO 1: BUSCAR DADOS ---
@@ -96,23 +97,90 @@ document.getElementById('form-editar-perfil').addEventListener('submit', async f
     }
 });
 
-// --- FUNÇÕES DO CHAT E BOTÕES ---
-function enviarMensagem() {
+// --- FUNÇÕES DO CHAT DE SUPORTE REAIS ---
+
+// Busca o histórico de mensagens assim que entra na tela de perfil
+async function carregarHistoricoChat() {
+    const email = localStorage.getItem('usuarioLogado');
+    const chat = document.getElementById('historico-mensagens');
+    
+    try {
+        const resposta = await fetch(API_URL, {
+            method: 'POST',
+            body: JSON.stringify({ acao: 'buscarSuporteBarbearia', email: email })
+        });
+        const resultado = await resposta.json();
+
+        if (resultado.status === 'sucesso') {
+            chat.innerHTML = `
+                <div class="mensagem msg-admin">
+                    <p>Olá! Sou o Administrador do Navalha APP. Como posso ajudar você hoje?</p>
+                </div>
+            `; // Reseta com a mensagem padrão de boas-vindas
+            
+            resultado.dados.forEach(item => {
+                // 1. Mostra a pergunta da barbearia
+                chat.innerHTML += `
+                    <div class="mensagem msg-barbeiro">
+                        <p>${item.mensagem}</p>
+                    </div>
+                `;
+                
+                // 2. Se o Admin respondeu, mostra a resposta também!
+                if (item.resposta && item.resposta.trim() !== "") {
+                    chat.innerHTML += `
+                        <div class="mensagem msg-admin">
+                            <p>${item.resposta}</p>
+                        </div>
+                    `;
+                }
+            });
+            
+            // Rola o chat para a última mensagem
+            chat.scrollTop = chat.scrollHeight;
+        }
+    } catch (erro) {
+        console.error("Erro ao carregar chat", erro);
+    }
+}
+
+// Envia uma nova mensagem para o Admin
+async function enviarMensagem() {
     const inputMsg = document.getElementById('nova-mensagem');
     const texto = inputMsg.value.trim();
+    const email = localStorage.getItem('usuarioLogado');
 
     if (texto === "") return;
 
-    const chat = document.getElementById('historico-mensagens');
-    const novaDiv = document.createElement('div');
-    novaDiv.className = 'mensagem msg-barbeiro';
-    novaDiv.innerHTML = `<p>${texto}</p>`;
+    // Desativa o botão para não enviar duplicado
+    const btn = document.querySelector('.btn-enviar-msg');
+    btn.disabled = true;
+    inputMsg.disabled = true;
 
-    chat.appendChild(novaDiv);
-    inputMsg.value = '';
-    chat.scrollTop = chat.scrollHeight;
+    try {
+        const resposta = await fetch(API_URL, {
+            method: 'POST',
+            body: JSON.stringify({ acao: 'enviarMensagemSuporte', emailBarbearia: email, mensagem: texto })
+        });
+        const resultado = await resposta.json();
+
+        if (resultado.status === 'sucesso') {
+            // Limpa o campo e recarrega o chat para mostrar a mensagem enviada
+            inputMsg.value = '';
+            carregarHistoricoChat();
+        } else {
+            alert("Erro ao enviar mensagem.");
+        }
+    } catch (erro) {
+        alert("Erro de conexão.");
+    } finally {
+        btn.disabled = false;
+        inputMsg.disabled = false;
+        inputMsg.focus();
+    }
 }
 
+// Permite enviar com a tecla Enter
 document.getElementById('nova-mensagem').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') enviarMensagem();
 });
