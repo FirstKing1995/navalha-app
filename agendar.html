@@ -68,27 +68,8 @@
                 </div>
         </div>
 
-        <div id="passo-3-data-hora" style="display: none;">
-            <p class="instrucao-passo">Para qual dia você quer agendar?</p>
-            
-            <div class="grupo-input">
-                <input type="date" id="data-agendamento" onchange="buscarHorariosDisponiveis()">
-            </div>
-
-            <div id="area-horarios" style="display: none; margin-top: 25px;">
-                <p class="instrucao-passo">Horários disponíveis neste dia:</p>
-                
-                <div class="grid-horarios" id="lista-horarios">
-                    </div>
-
-                <button class="btn-principal" id="btn-continuar-servicos" style="margin-top: 25px; display: none;" onclick="avancarParaEscolherServicos()">
-                    CONTINUAR
-                </button>
-            </div>
-        </div>
-
-        <div id="passo-4-servicos" style="display: none;">
-            <p class="instrucao-passo">Selecione um ou mais serviços:</p>
+        <div id="passo-3-servicos" style="display: none;">
+            <p class="instrucao-passo">O que vamos fazer hoje?</p>
             
             <div id="lista-servicos-cliente" class="grid-servicos">
                 </div>
@@ -98,7 +79,26 @@
                     <p>Total: <b id="valor-total-tela">R$ 0,00</b></p>
                     <span id="tempo-total-tela">0 min</span>
                 </div>
-                <button class="btn-principal" onclick="avancarParaResumo()">IR PARA RESUMO</button>
+                <button class="btn-principal" onclick="avancarParaEscolherDataHora()">ESCOLHER HORÁRIO</button>
+            </div>
+        </div>
+
+        <div id="passo-4-data-hora" style="display: none;">
+            <p class="instrucao-passo">Para qual dia você quer agendar?</p>
+            
+            <div class="grupo-input">
+                <input type="date" id="data-agendamento" onchange="buscarHorariosDisponiveis()">
+            </div>
+
+            <div id="area-horarios" style="display: none; margin-top: 25px;">
+                <p class="instrucao-passo">Horários que cabem o seu serviço:</p>
+                
+                <div class="grid-horarios" id="lista-horarios" style="margin-bottom: 30px;">
+                    </div>
+
+                <button class="btn-principal" id="btn-continuar-resumo" style="display: none; width: 100%;" onclick="avancarParaResumo()">
+                    IR PARA RESUMO FINAL
+                </button>
             </div>
         </div>
 
